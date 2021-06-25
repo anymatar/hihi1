@@ -1,0 +1,150 @@
+import pyttsx3 
+import datetime
+import os
+import webbrowser
+import smtplib
+import wikipedia as Wikipedia
+import speech_recognition as sr
+import wolframalpha
+Master = 'shivshant'
+engine = pyttsx3.init()
+voice = engine.getProperty('voices')
+engine.setProperty('voice', voice[0].id)
+
+def speak (audio):
+    engine.say(audio)
+    engine.runAndWait()
+speak('my name is shiva')
+def time():
+    time = datetime.datetime.now().strftime("%I,%M,%S")
+    speak(time)
+def wishMe():
+    hour = int(datetime.datetime.now().hour)
+    if hour>=0 and hour<12:
+        speak("raam raam!")
+    elif hour>=12 and hour<16:
+        speak("jai bholaenaath! ")
+    else:
+        speak("jai shri krishnaa!")
+wishMe()
+
+def main():
+    def takeCommand():
+        r = sr.Recognizer()
+        with sr.Microphone() as source:
+            print("shun rahaa hu mai...")
+            audio = r.listen(source)
+            r.pause_threshold = 2
+
+        try:
+            print("shamajh rahaa hu...")
+            query = r.recognize_google(audio, Language='en-in')
+            print("user said: , query")
+
+        except Exception as e:
+            print('jara phir say kehnaa')
+            query = None
+        
+        return query
+
+    query = takeCommand()
+
+    if 'wikipedia' in query:
+        speak('searching Wikipedia sir')
+        query = query.replace('wikipedia',"")
+        result = Wikipedia.summary(query, sentences =5)
+        print(result)
+        speak(result)
+    elif 'wikipedia long' in query:
+        speak('searching Wikipedia sir')
+        query = query.replace('wikipedia',"")
+        result = Wikipedia.summary(query, sentences =50)
+        print(result)
+        speak(result)
+
+    elif 'open youtube' in query.lower():
+        webbrowser.open('youtube.com')
+    elif 'youtube kholo' in query.lower():
+        webbrowser.open('youtube.com')
+    elif 'open instagram' in query.lower():
+        webbrowser.open('instagram.com')
+    elif 'instagram kholo' in query.lower():
+        webbrowser.open('instagram.com')
+    elif 'open google' in query.lower():
+        webbrowser.open('google.com')
+    elif 'open facebook' in query.lower():
+        webbrowser.open('facebook.com')
+    elif 'open git hub' in query.lower():
+        webbrowser.open('github.com')
+    elif 'open pdf drive' in query.lower():
+        webbrowser.open('pdfdrive.com')
+    elif 'play music' in query.lower():
+        songs_dir = "E:\\suno"
+        songs = os.listdir(songs_dir)
+        print(songs)
+        os.startfile(os.path.join(songs_dir, songs[0]))
+    elif 'open vs code' in query.lower():
+        codePath = "C:\\Users\\SSC\\AppData\\Local\\Programs\\Microsoft VS Code"
+        os.startfile(codePath)
+    elif 'open open toonz' in query.lower():
+        codePath = "C:\\Program Files\\OpenToonz"
+        os.startfile(codePath)
+    elif 'open photoshop' in query.lower():
+        codePath = "C:\\Program Files (x86)\\Adobe Photoshop CS6"
+        os.startfile(codePath)
+    elif 'open chrome' in query.lower():
+        codePath = "C:\\Program Files (x86)\\Google\Chrome\\Application"
+        os.startfile(codePath)
+    elif 'open krita' in query.lower():
+        codePath = "C:\\Program Files\\Krita (x64)\\bin"
+        os.startfile(codePath)
+    elif 'open opera' in query.lower():
+        codePath = "C:\\Users\\SSC\\AppData\\Local\\Programs\\Opera"
+        os.startfile(codePath)
+    elif "whats time" in query.lower():
+        result = time()
+        print(result)
+        speak(result)
+        #hindi code kuchh upr bhi hai ^^^^or baki niche ;-)  ^o^  T_T do nothing wrong with it
+    elif 'google kholo' in query.lower():
+        webbrowser.open('google.com')
+    elif 'facebook kholo' in query.lower():
+        webbrowser.open('facebook.com')
+    elif 'git hub kholo' in query.lower():
+        webbrowser.open('github.com')
+    elif 'pdf drive kholo' in query.lower():
+        webbrowser.open('pdfdrive.com')
+    elif 'music sunaao' in query.lower():
+        songs_dir = "E:\\suno"
+        songs = os.listdir(songs_dir)
+        print(songs)
+        os.startfile(os.path.join(songs_dir, songs[0]))
+    elif 'vs code kholo' in query.lower():
+        codePath = "C:\\Users\\SSC\\AppData\\Local\\Programs\\Microsoft VS Code"
+        os.startfile(codePath)
+    elif 'open toonz kholo' in query.lower():
+        codePath = "C:\\Program Files\\OpenToonz"
+        os.startfile(codePath)
+    elif 'photoshop kholo' in query.lower():
+        codePath = "C:\\Program Files (x86)\\Adobe Photoshop CS6"
+        os.startfile(codePath)
+    elif 'chrome kholo' in query.lower():
+        codePath = "C:\\Program Files (x86)\\Google\Chrome\\Application"
+        os.startfile(codePath)
+    elif 'krita kholo' in query.lower():
+        codePath = "C:\\Program Files\\Krita (x64)\\bin"
+        os.startfile(codePath)
+    elif 'opera kholo' in query.lower():
+        codePath = "C:\\Users\\SSC\\AppData\\Local\\Programs\\Opera"
+        os.startfile(codePath)
+    elif "time horahaa" in query.lower():
+        result = time()
+        print(result)
+        speak(result)
+    elif "shiva quit" in query.lower():
+        speak('bye sir')
+        quit
+
+    elif 'open youtube' in query.lower():
+        webbrowser.open('youtube.com')
+takeCommand()
